@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: bind-allow-get
+  namespace: default
+subjects:
+# Define the subject (user, group, or service account) to bind the role to
+- kind: User
+  name: jane-doe
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-get-role
+  apiGroup: rbac.authorization.k8s.io 
