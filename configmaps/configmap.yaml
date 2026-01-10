@@ -1,0 +1,8 @@
+apiVersion: v1
+Kind: ConfigMap 
+metadata:
+  name: my-config
+data:
+  user: admin
+  password: secretpassword123
+  
