@@ -1,0 +1,26 @@
+apiversion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-namespace-traffic
+  namespace: default
+spec:
+# Selects all pods in the "default" namespace
+  podSelector: {}
+  namespaceSelector:
+  # Selects namespaces with the label "role: db"
+    matchLabels: 
+      role: db  
+  policyTypes: 
+  - Ingress 
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          project: myproject
+    ports:
+    - protocol: TCP
+      port: 5432    
+      # This NetworkPolicy allows ingress traffic to pods with the label "role: db"
+      # in the "default" namespace from any pod in namespaces labeled with "project: myproject"
+      # on TCP port 5432. 
+      # Make sure to label the namespaces you want to allow traffic from with "project: myproject".
