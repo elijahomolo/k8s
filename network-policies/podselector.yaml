@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: NetworkPolicy
+metadata:
+  name: allow-specific-pod
+spec: 
+  podSelector:
+    matchLabels:
+      role: db
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          role: app
+    ports:
+    - protocol: TCP
+      port: 3306    
+      # Allow ingress traffic to pods with label role=db only from pods with label role=app on port 3306 (MySQL)
